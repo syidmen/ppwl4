@@ -11,5 +11,12 @@ app.onRequest(({ request }) => {
 
 app.get("/", () => "Hello Middleware")
 
+app.onRequest(({ request, set }) => {
+  if (request.headers.get("x-block") === "true") {
+    set.status = 403
+    return { message: "Blocked" }
+  }
+})
+
 app.listen(3000)
 console.log("Server running at http://localhost:3000")
