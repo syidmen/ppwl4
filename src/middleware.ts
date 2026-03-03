@@ -34,6 +34,22 @@ app.get("/dashboard",
    }
  }
 )
+app.get("/admin",
+    () => ({
+    stats: 99
+    }),
+    {
+    beforeHandle({ headers, set }) {
+        if (headers.authorization !== "Bearer 123") {
+        set.status = 401
+        return {
+            success: false,
+            message: "Unauthorized"
+        }
+        }
+    }
+    }
+    )
 
 app.listen(3000)
 console.log("Server running at http://localhost:3000")
