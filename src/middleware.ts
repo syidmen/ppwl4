@@ -18,6 +18,14 @@ app.onRequest(({ request, set }) => {
   }
 })
 
+// handler harus diletakkan sebelum route
+app.onAfterHandle(({ response }) => {
+ return {
+   success: true,
+   data: response
+ }
+})
+
 app.get("/dashboard",
  () => ({
    message: "Welcome to Dashboard"
@@ -50,6 +58,10 @@ app.get("/admin",
     }
     }
     )
+
+    app.get("/profile", () => ({
+        name: "Nama kamu"
+    }))
 
 app.listen(3000)
 console.log("Server running at http://localhost:3000")
