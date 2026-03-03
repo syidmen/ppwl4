@@ -18,6 +18,15 @@ const app = new Elysia()
       })
     }
   )
+
+  app.get("/user/:id",
+    ({ params }) => params,
+    {
+      params: t.Object({
+        id: t.Number()
+      })
+    }
+  )
   .listen(3000);
 
 
