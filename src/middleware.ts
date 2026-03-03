@@ -63,5 +63,9 @@ app.get("/admin",
         name: "Nama kamu"
     }))
 
+    app.get("/product", () => ({ 
+        id: 1, name: "Laptop" 
+    }))
+
 app.listen(3000)
 console.log("Server running at http://localhost:3000")
