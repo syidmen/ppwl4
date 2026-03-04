@@ -18,12 +18,16 @@ app.onRequest(({ request, set }) => {
   }
 })
 
-// handler harus diletakkan sebelum route
-app.onAfterHandle(({ response }) => {
- return {
-   success: true,
-   data: response
- }
+
+app.onAfterHandle(({ response, set }) => {
+  if (typeof set.status === "number" && set.status >= 400) {
+    return response
+  }
+
+  return {
+    success: true,
+    data: response
+  }
 })
 
 app.get("/dashboard",
@@ -83,7 +87,6 @@ app.onError(({ code, error, set }) => {
     return {
       success: false,
       message: "Validation Error",
-      detail: error.message
     }
   }
 
